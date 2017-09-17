@@ -5,18 +5,26 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerExpChangeEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
+import fr.discowzombie.xpmanager.manager.LevelAbstract;
 import fr.discowzombie.xpmanager.manager.PlayerManager;
 
 public class XPGetter implements Listener {
 	
-	@EventHandler (priority = EventPriority.LOWEST)
+	@EventHandler
+	public void updateXpBar(PlayerJoinEvent e){
+		Player p = e.getPlayer();
+		LevelAbstract.updateBar(p);
+	}
+	
+	@EventHandler (priority = EventPriority.MONITOR)
 	public void onXPGain(PlayerExpChangeEvent e){
 		Player p = e.getPlayer();
 		int amount = e.getAmount();
 		
-		int lvl = new PlayerManager(p).getPlayerLvl();
-		int xp = new PlayerManager(p).getPlayerXp();
+		new PlayerManager(p).addXp(amount);
+		LevelAbstract.updateBar(p);
 	}
-
+	
 }
