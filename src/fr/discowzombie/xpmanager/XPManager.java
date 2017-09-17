@@ -3,6 +3,7 @@ package fr.discowzombie.xpmanager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.discowzombie.xpmanager.commands.ExpCmd;
 import fr.discowzombie.xpmanager.events.XPGetter;
 import fr.discowzombie.xpmanager.manager.LevelAbstract;
 
@@ -28,6 +29,8 @@ public class XPManager extends JavaPlugin {
 		System.out.println(LevelAbstract.levels);
 		
 		Bukkit.getServer().getPluginManager().registerEvents(new XPGetter(), this);
+		
+		getCommand("exp").setExecutor(new ExpCmd());
 		
 		super.onEnable();
 	}
